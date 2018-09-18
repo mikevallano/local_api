@@ -13,15 +13,23 @@
     <h3>Kits in DB</h3>
     <div id='kit-div'></div>
 
+    <a href="#" id='add-new-kit-link'>Add new Kit</a>
+
     <form id="add-kit" class='hidden'>
       <label>Kit Name</label>
-      <input type="text" id="kit-name">
+      <input type="text" id="kit-name" autocomplete="off">
       <label>Kit Color</label>
-      <input type="text" id="kit-color">
+      <input type="text" id="kit-color" autocomplete="off">
       <br/>
       <button id='add-kit-btn'>Add Kit</button>
     </form>
   </div>
+
+<style>
+  .hidden {
+    display: none;
+  }
+</style>
 
 <script src="app.js"></script>
 </body>
