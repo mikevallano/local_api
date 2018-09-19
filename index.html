@@ -11,18 +11,25 @@
     <h1>Kits!</h1>
 
     <h3>Kits in DB</h3>
-    <div id='kit-div'></div>
+    <div id='kit-output-div'></div>
 
-    <a href="#" id='add-new-kit-link'>Add new Kit</a>
+    <h4>Filter Kits</h4>
+    <select name="kit-color-select" id="kit-color-select"></select>
 
-    <form id="add-kit" class='hidden'>
-      <label>Kit Name</label>
-      <input type="text" id="kit-name" autocomplete="off">
-      <label>Kit Color</label>
-      <input type="text" id="kit-color" autocomplete="off">
-      <br/>
-      <button id='add-kit-btn'>Add Kit</button>
-    </form>
+
+    <div id='kit-form-container'>
+
+      <a href="#" id='add-new-kit-link'>Add new Kit</a>
+
+      <form id="add-kit" class='hidden'>
+        <label>Kit Name</label>
+        <input type="text" id="kit-name" autocomplete="off">
+        <label>Kit Color</label>
+        <input type="text" id="kit-color" autocomplete="off">
+        <br/>
+        <button id='add-kit-btn'>Add Kit</button>
+      </form>
+    </div>
   </div>
 
 <style>

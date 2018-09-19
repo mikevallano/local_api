@@ -1,8 +1,9 @@
-const kitDiv = document.getElementById('kit-div'),
+const kitDiv = document.getElementById('kit-output-div'),
       newKitForm = document.getElementById('add-kit'),
       kitNameField = document.getElementById('kit-name'),
       kitColorField = document.getElementById('kit-color'),
       addNewKitLink = document.getElementById('add-new-kit-link'),
+      kitColorSelect = document.getElementById('kit-color-select'),
       starterKits = [ {
                         name: "windowkitter",
                         color: "mask"
@@ -16,9 +17,10 @@ const kitDiv = document.getElementById('kit-div'),
                         color: "orange"
                       }
                     ]
+let storedKits;
 
 const getOrSetInitialStorage = () => {
-  let storedKits = getKitsFromStorage();
+  storedKits = getKitsFromStorage();
   if (storedKits == null) {
     localStorage.setItem('kitData', JSON.stringify(starterKits))
     storedKits = getKitsFromStorage();
@@ -27,14 +29,14 @@ const getOrSetInitialStorage = () => {
 }
 
 const getKitsFromStorage = () => {
-  return JSON.parse(localStorage.getItem('kitData'))
+  let kits = JSON.parse(localStorage.getItem('kitData'))
+  populateColorSelect(kits)
+  return kits
 }
 
-
 const addKitToStorage = (kit) => {
-  let currentKits = getKitsFromStorage()
-  currentKits.push(kit)
-  localStorage.setItem('kitData', JSON.stringify(currentKits))
+  storedKits.push(kit)
+  localStorage.setItem('kitData', JSON.stringify(storedKits))
 }
 
 const showKits = (kits) => {
@@ -50,8 +52,8 @@ newKitForm.addEventListener('submit', (e) =>{
   console.log('form submitted')
   let newKit = {name: kitNameField.value, color: kitColorField.value}
   addKitToStorage(newKit)
-  let allKits = getKitsFromStorage()
-  showKits(allKits)
+  storedKits = getKitsFromStorage()
+  showKits(storedKits)
   newKitForm.reset()
   hideForm()
 })
@@ -66,5 +68,29 @@ const hideForm = () => {
   addNewKitLink.classList.remove('hidden')
 }
 
+const kitNames = (kits) => {
+  return storedKits.map(kit => kit.name)
+}
+
+const kitColors = (kits) => {
+  return kits.map(kit => kit.color)
+}
+
+const populateColorSelect = (kits) => {
+  let colors = kitColors(kits)
+  console.log({colors})
+  let options = ''
+  colors.forEach(color => {
+    options += `<option value='${color}'>${color}</option>`
+  })
+  kitColorSelect.innerHTML = options
+}
+
 document.addEventListener('DOMContentLoaded', getOrSetInitialStorage)
 addNewKitLink.addEventListener('click', showForm)
+
+
+// select color and return names that match the color
+// select age range
+// add kit
+// refactor to use classes
