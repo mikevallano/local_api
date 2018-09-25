@@ -18,6 +18,7 @@ const kitDiv = document.getElementById('kit-output-div'),
                       }
                     ]
 let storedKits;
+let ui = new Ui()
 
 const getOrSetInitialStorage = () => {
   storedKits = getKitsFromStorage();
@@ -25,8 +26,8 @@ const getOrSetInitialStorage = () => {
     localStorage.setItem('kitData', JSON.stringify(starterKits))
     storedKits = getKitsFromStorage();
   }
-  showKits(storedKits)
-  populateColorSelect(storedKits)
+  ui.showKits(storedKits)
+  ui.populateColorSelect(storedKits)
 }
 
 const getKitsFromStorage = () => {
@@ -39,21 +40,13 @@ const addKitToStorage = (kit) => {
   localStorage.setItem('kitData', JSON.stringify(storedKits))
 }
 
-const showKits = (kits) => {
-  let output = ''
-  kits.forEach(kit => {
-    output += `<li>Name: ${kit.name}, Color: ${kit.color}</li>`
-  })
-  kitDiv.innerHTML = output
-}
-
 newKitForm.addEventListener('submit', (e) =>{
   e.preventDefault()
   let newKit = {name: kitNameField.value, color: kitColorField.value}
   addKitToStorage(newKit)
   storedKits = getKitsFromStorage()
-  showKits(storedKits)
-  populateColorSelect(storedKits)
+  ui.showKits(storedKits)
+  ui.populateColorSelect(storedKits)
   newKitForm.reset()
   hideForm()
 })
@@ -76,20 +69,11 @@ const kitColors = (kits) => {
   return kits.map(kit => kit.color)
 }
 
-const populateColorSelect = (kits) => {
-  let colors = kitColors(kits)
-  let options = "<option value='all-kits'>All Kits</option>"
-  colors.forEach(color => {
-    options += `<option value='${color}'>${color}</option>`
-  })
-  kitColorSelect.innerHTML = options
-}
-
 const filterKitsByColor = () => {
   color = kitColorSelect.value
   console.log('color: ', color)
   kits = color == 'all-kits' ? storedKits : storedKits.filter(kit => kit.color == color)
-  showKits(kits)
+  ui.showKits(kits)
 }
 
 document.addEventListener('DOMContentLoaded', getOrSetInitialStorage)
