@@ -26,11 +26,11 @@ const getOrSetInitialStorage = () => {
     storedKits = getKitsFromStorage();
   }
   showKits(storedKits)
+  populateColorSelect(storedKits)
 }
 
 const getKitsFromStorage = () => {
   let kits = JSON.parse(localStorage.getItem('kitData'))
-  populateColorSelect(kits)
   return kits
 }
 
@@ -49,11 +49,11 @@ const showKits = (kits) => {
 
 newKitForm.addEventListener('submit', (e) =>{
   e.preventDefault()
-  console.log('form submitted')
   let newKit = {name: kitNameField.value, color: kitColorField.value}
   addKitToStorage(newKit)
   storedKits = getKitsFromStorage()
   showKits(storedKits)
+  populateColorSelect(storedKits)
   newKitForm.reset()
   hideForm()
 })
@@ -78,16 +78,23 @@ const kitColors = (kits) => {
 
 const populateColorSelect = (kits) => {
   let colors = kitColors(kits)
-  console.log({colors})
-  let options = ''
+  let options = "<option value='all-kits'>All Kits</option>"
   colors.forEach(color => {
     options += `<option value='${color}'>${color}</option>`
   })
   kitColorSelect.innerHTML = options
 }
 
+const filterKitsByColor = () => {
+  color = kitColorSelect.value
+  console.log('color: ', color)
+  kits = color == 'all-kits' ? storedKits : storedKits.filter(kit => kit.color == color)
+  showKits(kits)
+}
+
 document.addEventListener('DOMContentLoaded', getOrSetInitialStorage)
 addNewKitLink.addEventListener('click', showForm)
+kitColorSelect.addEventListener('change', filterKitsByColor)
 
 
 // select color and return names that match the color
