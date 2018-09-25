@@ -69,16 +69,11 @@ const kitColors = (kits) => {
   return kits.map(kit => kit.color)
 }
 
-const filterKitsByColor = () => {
-  color = kitColorSelect.value
-  console.log('color: ', color)
-  kits = color == 'all-kits' ? storedKits : storedKits.filter(kit => kit.color == color)
-  ui.showKits(kits)
-}
-
 document.addEventListener('DOMContentLoaded', getOrSetInitialStorage)
 addNewKitLink.addEventListener('click', showForm)
-kitColorSelect.addEventListener('change', filterKitsByColor)
+kitColorSelect.addEventListener('change', () => {
+  ui.filterKitsByColor(kitColorSelect.value)
+})
 
 
 // select color and return names that match the color

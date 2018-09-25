@@ -24,4 +24,9 @@ class Ui {
     kitColorSelect.innerHTML = options
   }
 
+  filterKitsByColor(color) {
+    let kits = color == 'all-kits' ? storedKits : storedKits.filter(kit => kit.color == color)
+    this.showKits(kits)
+  }
+
 }
