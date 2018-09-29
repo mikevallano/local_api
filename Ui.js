@@ -29,4 +29,14 @@ class Ui {
     this.showKits(kits)
   }
 
+  showForm() {
+    newKitForm.classList.remove('hidden')
+    addNewKitLink.classList.add('hidden')
+  }
+
+  hideForm() {
+    newKitForm.classList.add('hidden')
+    addNewKitLink.classList.remove('hidden')
+  }
+
 }

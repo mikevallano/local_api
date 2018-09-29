@@ -48,18 +48,8 @@ newKitForm.addEventListener('submit', (e) =>{
   ui.showKits(storedKits)
   ui.populateColorSelect(storedKits)
   newKitForm.reset()
-  hideForm()
+  ui.hideForm()
 })
-
-const showForm = () => {
-  newKitForm.classList.remove('hidden')
-  addNewKitLink.classList.add('hidden')
-}
-
-const hideForm = () => {
-  newKitForm.classList.add('hidden')
-  addNewKitLink.classList.remove('hidden')
-}
 
 const kitNames = (kits) => {
   return storedKits.map(kit => kit.name)
@@ -70,13 +60,7 @@ const kitColors = (kits) => {
 }
 
 document.addEventListener('DOMContentLoaded', getOrSetInitialStorage)
-addNewKitLink.addEventListener('click', showForm)
+addNewKitLink.addEventListener('click', ui.showForm)
 kitColorSelect.addEventListener('change', () => {
   ui.filterKitsByColor(kitColorSelect.value)
 })
-
-
-// select color and return names that match the color
-// select age range
-// add kit
-// refactor to use classes
